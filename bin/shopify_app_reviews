@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
-puts "Hello World"
+require './lib/shopify_app_reviews'
+
+ShopifyAppReviews::CLI.new.run
