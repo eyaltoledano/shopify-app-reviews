@@ -22,15 +22,22 @@ class ShopifyApp
     @developer_url = attributes[:developer_url]
     @developer_contact = attributes[:developer_contact]
     @app_reviews = []
-    @@all << self
   end
 
   def self.all
     @@all
   end
 
+  def self.destroy_all
+    self.class.all.clear
+  end
+
   def save
-    @@all << self
+    self.class.all << self
+  end
+
+  def self.create(attributes)
+    self.new(attributes).tap{ |a| a.save }
   end
 
   def app_reviews

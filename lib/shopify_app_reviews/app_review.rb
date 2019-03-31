@@ -16,15 +16,23 @@ class AppReview
     @date = app_attributes[:date]
     @rating = app_attributes[:rating]
     @app = app if app
-    @@all << self
   end
 
   def self.all
     @@all
   end
 
+  def self.destroy_all
+    self.class.all.clear
+  end
+
   def save
-    @@all << self
+    self.class.all << self
+  end
+
+  def self.create(app_attributes, app = nil)
+    a = self.new(app_attributes, app)
+    a.save
   end
 
   def app=
