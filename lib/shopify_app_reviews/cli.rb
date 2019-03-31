@@ -23,25 +23,16 @@ class ShopifyAppReviews::CLI
       puts "Please enter a Shopify app URL:"
       input = gets.strip.downcase
       if input.include?("apps.shopify.com")
-        display_app
+        display_app_details
       else
-        app_not_found
+        puts "Invalid entry. Please use a Shopify App URL."
       end
     end
   end
 
-  def display_app # displays the app information
+  def display_app_details
     puts "[App Board Placeholder]"
   end
-
-  def app_found? # makes sure that the app exists / input is valid
-     false
-  end
-
-  def app_not_found
-     puts "Doesn't look like that app exists."
-  end
-
 
   def goodbye
     puts "Closing CLI."
