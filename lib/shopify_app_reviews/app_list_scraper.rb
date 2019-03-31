@@ -21,7 +21,7 @@ class AppListScraper
       unless row == index.css('tr')[0] # Skip the first row (headers)
         hash = {}
         hash[:name] = row.css('td').css('a').first.text
-        hash[:url] = row.css('td').css('a')[1].attributes["href"].text
+        hash[:url] = row.css('td a').first.attributes["href"].text
         hash[:category] = row.css('td').last.text
         hash[:developer_name] = row.css('td').css('a').last.text
         hash[:developer_url] = row.css('td').css('a').last["href"]
@@ -29,8 +29,12 @@ class AppListScraper
       end
     end
     app_array
-    binding.pry
   end
+
+  def import
+
+  end
+
 end
 
 AppListScraper.scrape_shopify_apps

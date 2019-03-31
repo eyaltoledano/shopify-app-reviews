@@ -48,4 +48,10 @@ class ShopifyApp
     end
   end
 
+  def self.create_from_collection(app_array)
+    app_array.each do |app_info|
+      self.create(app_info)
+    end
+  end
+
 end
