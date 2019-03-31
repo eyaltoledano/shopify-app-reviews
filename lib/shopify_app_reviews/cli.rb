@@ -1,11 +1,26 @@
 # # CLI Controller
-# require_relative "shopify_app_reviews/version"
-# require_relative './shopify_app_reviews/cli'
-
 
 class ShopifyAppReviews::CLI
-
   def run
-    puts "Enter a Shopify App name or URL:"
+    welcome
+    get_input
+  end
+
+  def welcome
+    puts <<-DOC.gsub /^\s*/, ''
+    There are currently 2,405 apps on the Shopify App Store.
+    Search for a Shopify app by name or by URL to access its information.
+    DOC
+  end
+
+  def get_input
+    puts "Please enter a Shopify app name or URL:"
+    input = gets.strip
+
+    if input.include?("apps.shopify.com")
+      puts "You used an app URL"
+    else
+      puts "You used an app name"
+    end
   end
 end
