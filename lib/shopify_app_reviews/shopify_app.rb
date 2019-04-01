@@ -9,12 +9,12 @@ class ShopifyApp
 
   def initialize(attributes)
     @name = attributes[:name]
-    @description = attributes[:description] if attributes[:description]
-    @overall_rating = attributes[:overall_rating] if attributes[:overall_rating]
     @url = attributes[:url]
     @category = attributes[:category]
     @developer_name = attributes[:developer_name]
     @developer_url = attributes[:developer_url]
+    @description = attributes[:description] if attributes[:description]
+    @overall_rating = attributes[:overall_rating] if attributes[:overall_rating]
     @developer_contact = attributes[:developer_contact] if attributes[:developer_contact]
     @app_reviews = []
   end

@@ -16,24 +16,43 @@ class ShopifyAppReviews::CLI
   end
 
   def welcome
-    print "The Shopify App Library is being updated. One moment."
+    hr
+    print "Welcome to Shopify App Reviews CLI.".colorize(:light_green)
+    print " The Shopify App Library is updating. One moment...".colorize(:green)
+  end
+
+  def hr
+    80.times {print "-".colorize(:cyan)}
+    puts "-".colorize(:cyan)
   end
 
   def library_updated
     now = Time.now.asctime
-    puts " Done.".colorize(:green)
-    puts "Library updated as of #{now.colorize(:green)}"
-    80.times {print "-".colorize(:green)}
-    puts "-".colorize(:green)
+    checkmark = "\u2713"
+    puts checkmark.encode('utf-8').colorize(:light_green)
+    puts "Library updated as of #{now}".colorize(:green)
+    hr
+  end
+
+  def print_instructions
+    puts "You can use 'exit cli' to leave at any time.".colorize(:yellow)
+    puts "Search for a Shopify app by name or URL to access its information.".colorize(:green)
+    print "Enter the name or URL of a Shopify app: ".colorize(:green)
+  end
+
+  def print_sub_instructions
+    puts "Use 'latest reviews' to see #{requested_app.name}'s 10 latest reviews.".colorize(:yellow)
+    puts "Use 'app details' to review #{requested_app.name}'s details.".colorize(:yellow)
+    puts "Use 'new app' to return to the previous menu.".colorize(:yellow)
+    print "What would you like to do? ".colorize(:green)
   end
 
   def get_input
     input = nil
     while input != "exit cli"
-      puts "Search for a Shopify app by name or URL to access its information."
-      puts "You can use 'exit cli' to leave at any time."
-      print "Please enter the name or URL of a Shopify app: "
+      print_instructions
       input = gets.chomp.downcase
+      hr
       display_app_details(input) ? display_app_details(input) : puts("Doesn't look like an app exists for that. Did you spell your request properly?") unless input == "exit cli"
     end
   end
@@ -47,9 +66,8 @@ class ShopifyAppReviews::CLI
       unless false
         sub_input = nil
         while !sub_input != "new app"
-          puts "Use 'latest reviews' to see #{requested_app.name}'s 10 latest reviews.'".colorize(:yellow)
-          puts "Use 'app details' to review #{requested_app.name}'s details.'".colorize(:yellow)
-          puts "Use 'new app' to return to the previous menu.".colorize(:yellow)
+          hr
+          print_sub_instructions
           sub_input = gets.chomp.downcase
           if sub_input == "latest reviews"
             display_app_reviews(requested_app)
@@ -67,25 +85,25 @@ class ShopifyAppReviews::CLI
 
   def app_details_table(app)
     add_metadata_to_app(app)
-    puts "Found #{app.name.colorize(:green)} in the #{app.category.colorize(:green)} category."
-    print "#{app.description.colorize(:green)} - "
-    puts "Rated #{app.overall_rating.colorize(:green)}"
-    puts "#{app.url.colorize(:green)}"
-    puts "Developed by: #{app.developer_name.colorize(:green)} (#{app.developer_url})"
-    puts "Developer Contact: #{app.developer_contact}"
+    puts "Found ".colorize(:green) + "#{app.name.colorize(:white)}" + " in the ".colorize(:green) + "#{app.category.colorize(:white)}" + " category. ".colorize(:green)
+    print "#{app.description.colorize(:white)}" + " - ".colorize(:green)
+    puts "#{app.overall_rating.colorize(:white)}"
+    puts "App URL: ".colorize(:green) + "#{app.url.colorize(:white)}"
+    puts "Developer: ".colorize(:green) + "#{app.developer_name.colorize(:white)}" + " (#{app.developer_url})".colorize(:green)
+    puts "Developer Contact: ".colorize(:green) + "#{app.developer_contact}".colorize(:white)
 
   end
 
   def display_app_reviews(app)
     add_reviews_to_app(app)
     total_reviews = app.total_review_count
-    puts "Here are #{app.name}'s 10 latest reviews:'"
-    puts "--------------------------".colorize(:green)
+    puts "#{app.name}'s 10 latest reviews:".colorize(:light_green)
+    hr
     app.app_reviews.each_with_index do |review, index|
-      puts "##{index + 1}. #{review.title.split.map(&:capitalize).join(' ')} - #{review.rating}"
-      puts "Reviewed on #{review.date}"
-      puts "#{review.body}"
-      puts "--------------------------".colorize(:green)
+      puts "##{(index + 1)}. ".colorize(:yellow) + "#{review.title.split.map(&:capitalize).join(' ').colorize(:green)} - #{review.rating}".colorize(:green)
+      puts "Reviewed on #{review.date}".colorize(:green)
+      puts "#{review.body}".colorize(:green)
+      hr unless review == app.app_reviews.last
     end
   end
 
