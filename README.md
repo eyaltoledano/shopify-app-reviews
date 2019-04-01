@@ -21,12 +21,13 @@ Or install it yourself as:
 ## Usage
 
 To start the CLI, navigate to the project root and run:
-``` bin/shopify_app_reviews
-```
+
+    $ bin/shopify_app_reviews
+
 You'll be required to supply the program with a Shopify app name or app URL from the Shopify App Store.
 
-If a Shopify App is found, you can  access its latest 10 reviews using:
-```latest reviews```
+If a Shopify App is found, you can  access its latest 10 reviews using
+`latest reviews`.
 
 ## Contributing
 
