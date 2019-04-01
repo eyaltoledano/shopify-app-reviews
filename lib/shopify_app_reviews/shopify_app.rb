@@ -30,6 +30,11 @@ class ShopifyApp
     end
   end
 
+  def total_review_count
+    binding.pry
+    app_reviews.count
+  end
+
   def self.create_from_collection(app_array)
     app_array.each do |app_info|
       self.create(app_info)

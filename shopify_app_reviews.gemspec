@@ -3,6 +3,8 @@ lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "shopify_app_reviews/version"
 
+gem 'colorize'
+
 Gem::Specification.new do |spec|
   spec.name          = "shopify_app_reviews"
   spec.version       = ShopifyAppReviews::VERSION
