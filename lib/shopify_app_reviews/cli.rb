@@ -24,7 +24,7 @@ class ShopifyAppReviews::CLI
     puts " Done.".colorize(:green)
     puts "Library updated as of #{now.colorize(:green)}"
     80.times {print "-".colorize(:green)}
-    puts "-".colorize(:light_blue)
+    puts "-".colorize(:green)
   end
 
   def get_input
@@ -34,8 +34,7 @@ class ShopifyAppReviews::CLI
       puts "You can use 'exit cli' to leave at any time."
       print "Please enter the name or URL of a Shopify app: "
       input = gets.chomp.downcase
-      binding.pry
-      display_app_details(input) ? display_app_details(input) : puts("Doesn't look like that app exists. Did you spell that right?") unless input == "exit cli"
+      display_app_details(input) ? display_app_details(input) : puts("Doesn't look like an app exists for that. Did you spell your request properly?") unless input == "exit cli"
     end
   end
 
@@ -43,7 +42,7 @@ class ShopifyAppReviews::CLI
     unless input == "exit cli"
       requested_app = ShopifyApp.find_by_url(input)
       requested_app = ShopifyApp.find_by_name(input) if requested_app.nil?
-      requested_app.nil? ? false : app_table(requested_app)
+      requested_app.nil? ? false : app_details_table(requested_app)
 
       unless false
         sub_input = nil
@@ -53,25 +52,25 @@ class ShopifyAppReviews::CLI
           puts "Use 'new app' to return to the previous menu."
           sub_input = gets.chomp.downcase
           if sub_input == "app reviews"
-            reviews_table(requested_app)
+            display_app_reviews(requested_app)
           end
           get_input if sub_input == "new app"
           if sub_input == "exit" || sub_input == "quit" || sub_input == "exit cli"
             goodbye
             exit
           end
-          app_table(requested_app) if sub_input == "app details"
+          app_details_table(requested_app) if sub_input == "app details"
         end
       end
     end
   end
 
-  def app_table(app)
+  def app_details_table(app)
     puts app
     # show app data in a nice table/ui
   end
 
-  def reviews_table(app)
+  def display_app_reviews(app)
     app.app_reviews
     # show each app review in a table format
   end
