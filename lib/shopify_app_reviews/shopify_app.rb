@@ -7,8 +7,6 @@ class ShopifyApp
 
   @@all = []
 
-  # Note that app's description and contact email can only be scraped by the AppReviewScraper, along all the reviews themselves.
-
   def initialize(attributes)
     @name = attributes[:name]
     @description = attributes[:description] if attributes[:description]

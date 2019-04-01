@@ -107,5 +107,4 @@ class ShopifyAppReviews::CLI
   def goodbye
     puts "Closing CLI."
   end
-
 end
