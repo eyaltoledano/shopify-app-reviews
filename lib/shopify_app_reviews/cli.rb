@@ -10,15 +10,19 @@ class ShopifyAppReviews::CLI
     welcome
     scrape_and_create_apps
     # add_reviews_to_apps
-    now = Time.now.asctime
-    puts " Done."
-    puts "Library updated as of #{now}."
+    library_updated
     get_input
     goodbye
   end
 
   def welcome
     print "The Shopify App Library is being updated. One moment."
+  end
+
+  def library_updated
+    now = Time.now.asctime
+    puts " Done."
+    puts "Library updated as of #{now}."
   end
 
   def get_input
@@ -49,7 +53,7 @@ class ShopifyAppReviews::CLI
             reviews_table(requested_app)
           end
           get_input if sub_input == "new app"
-          if sub_input == "exit" || sub_input == "quit"
+          if sub_input == "exit" || sub_input == "quit" || sub_input == "exit cli"
             goodbye
             exit
           end
