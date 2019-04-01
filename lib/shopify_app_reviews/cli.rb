@@ -7,6 +7,7 @@ class ShopifyAppReviews::CLI
   def run
     welcome
     scrape_and_create_apps
+    # add_reviews_to_apps
     get_input
     goodbye
   end
@@ -32,7 +33,13 @@ class ShopifyAppReviews::CLI
 
   def display_app_details(requested_url) # if an app is not found, return falsey
     requested_app = ShopifyApp.all.find {|app| app.url.include?(requested_url)}
-    requested_app.nil? ? false : requested_app
+    requested_app.nil? ? false : app_table(requested_app)
+  end
+
+  def app_table(app)
+    app
+    # show app data in a nice table/ui
+    binding.pry
   end
 
   def scrape_and_create_apps

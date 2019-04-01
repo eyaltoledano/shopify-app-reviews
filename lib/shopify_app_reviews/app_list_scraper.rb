@@ -31,10 +31,6 @@ class AppListScraper
     app_array
   end
 
-  def import
-
-  end
-
 end
 
 AppListScraper.scrape_shopify_apps
