@@ -21,10 +21,10 @@ class ShopifyAppReviews::CLI
     while input != "exit"
       puts "Search for a Shopify app by URL to access its information."
       puts "You can use 'exit' to leave at any time."
-      puts "Please enter a Shopify app URL:"
-      input = gets.strip.downcase
+      print "Please enter a Shopify app URL: "
+      input = gets.chomp.downcase
       if input.include?("apps.shopify.com")
-        display_app_details(input) ? display_app_details(input) : "Doesn't look like this app exists."
+        display_app_details(input) ? display_app_details(input) : puts("Doesn't look like that app exists. Did you spell that right?")
       else
         puts "Invalid entry. Please use a Shopify App URL."
       end

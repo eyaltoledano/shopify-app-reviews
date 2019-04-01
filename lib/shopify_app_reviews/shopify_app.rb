@@ -1,19 +1,13 @@
-# attributes = {
-#   :name => "Kit",
-#   :description => "Run better Facebook ads.",
-#   :url => "https://apps.shopify.com/kit",
-#   :category => "Marketing",
-#   :developer_name => "Shopify",
-#   :developer_url => "https://www.shopify.com/kit",
-#   :developer_contact => "hellokit@shopify.com"
-# }
-
 class ShopifyApp
   attr_accessor :name, :description, :url, :category, :developer_name, :developer_url, :developer_contact, :app_reviews
 
+  extend Concerns::Findable
+  extend Concerns::Methods::ClassMethods
+  include Concerns::Methods::InstanceMethods
+
   @@all = []
 
-  # Note that app's descroption and contact email can only be scraped by the AppReviewScraper, along all the reviews themselves.
+  # Note that app's description and contact email can only be scraped by the AppReviewScraper, along all the reviews themselves.
 
   def initialize(attributes)
     @name = attributes[:name]
@@ -30,18 +24,6 @@ class ShopifyApp
     @@all
   end
 
-  def self.destroy_all
-    self.class.all.clear
-  end
-
-  def save
-    self.class.all << self
-  end
-
-  def self.create(attributes)
-    self.new(attributes).tap{ |a| a.save }
-  end
-
   def app_reviews
     AppReview.all.each do |review|
       self.app_reviews << review if review.shopify_app == self
@@ -53,5 +35,4 @@ class ShopifyApp
       self.create(app_info)
     end
   end
-
 end

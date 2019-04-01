@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 
 require './lib/shopify_app_reviews'
+require "bundler/setup"
+# require 'pry'
+# require 'nokogiri'
+require 'open-uri'
 
 ShopifyAppReviews::CLI.new.run

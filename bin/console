@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+require 'nokogiri'
+require 'pry'
 
 require "bundler/setup"
 require "shopify_app_reviews"

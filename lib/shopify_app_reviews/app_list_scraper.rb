@@ -1,12 +1,3 @@
-# Return a hash like this:
-# attributes = {
-#   :name => "Kit",
-#   :url => "https://apps.shopify.com/kit",
-#   :category => "Marketing",
-#   :developer_name => "Shopify",
-#   :developer_url => "https://www.shopify.com/kit",
-# }
-
 require 'open-uri'
 require 'nokogiri'
 require 'pry'
