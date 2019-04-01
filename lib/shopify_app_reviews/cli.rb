@@ -21,8 +21,10 @@ class ShopifyAppReviews::CLI
 
   def library_updated
     now = Time.now.asctime
-    puts " Done."
-    puts "Library updated as of #{now}."
+    puts " Done.".colorize(:green)
+    puts "Library updated as of #{now.colorize(:green)}"
+    80.times {print "-".colorize(:green)}
+    puts "-".colorize(:light_blue)
   end
 
   def get_input
@@ -32,6 +34,7 @@ class ShopifyAppReviews::CLI
       puts "You can use 'exit cli' to leave at any time."
       print "Please enter the name or URL of a Shopify app: "
       input = gets.chomp.downcase
+      binding.pry
       display_app_details(input) ? display_app_details(input) : puts("Doesn't look like that app exists. Did you spell that right?") unless input == "exit cli"
     end
   end
@@ -45,11 +48,11 @@ class ShopifyAppReviews::CLI
       unless false
         sub_input = nil
         while !sub_input != "new app"
-          puts "Use 'show reviews' to see #{requested_app.name}'s reviews.'"
-          puts "Use 'back to app' to review #{requested_app.name}'s details.'"
+          puts "Use 'app reviews' to see #{requested_app.name}'s reviews.'"
+          puts "Use 'app details' to review #{requested_app.name}'s details.'"
           puts "Use 'new app' to return to the previous menu."
           sub_input = gets.chomp.downcase
-          if sub_input == "show reviews"
+          if sub_input == "app reviews"
             reviews_table(requested_app)
           end
           get_input if sub_input == "new app"
@@ -57,7 +60,7 @@ class ShopifyAppReviews::CLI
             goodbye
             exit
           end
-          app_table(requested_app) if sub_input == "back to app"
+          app_table(requested_app) if sub_input == "app details"
         end
       end
     end
