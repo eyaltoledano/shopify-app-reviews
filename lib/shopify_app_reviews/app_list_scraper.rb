@@ -23,5 +23,3 @@ class AppListScraper
   end
 
 end
-
-AppListScraper.scrape_shopify_apps

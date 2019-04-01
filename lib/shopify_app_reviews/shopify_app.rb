@@ -1,5 +1,5 @@
 class ShopifyApp
-  attr_accessor :name, :description, :url, :category, :developer_name, :developer_url, :developer_contact, :app_reviews
+  attr_accessor :name, :description, :url, :category, :developer_name, :developer_url, :developer_contact, :app_reviews, :overall_rating
 
   extend Concerns::Findable
   extend Concerns::Methods::ClassMethods
@@ -12,6 +12,7 @@ class ShopifyApp
   def initialize(attributes)
     @name = attributes[:name]
     @description = attributes[:description] if attributes[:description]
+    @overall_rating = attributes[:overall_rating] if attributes[:overall_rating]
     @url = attributes[:url]
     @category = attributes[:category]
     @developer_name = attributes[:developer_name]
@@ -25,13 +26,14 @@ class ShopifyApp
   end
 
   def app_reviews
+    review_array = []
     AppReview.all.each do |review|
-      self.app_reviews << review if review.shopify_app == self
+      review_array << review if review.app == self
     end
+    review_array
   end
 
   def total_review_count
-    binding.pry
     app_reviews.count
   end
 

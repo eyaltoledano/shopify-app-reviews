@@ -1,10 +1,3 @@
-# app_attributes = {
-#   :title => "Quick Deals New Zealand",
-#   :body => "This app is fantastic....tech support is amazingly fast. I look forward to seeing how it performs over time.",
-#   :date => "March 31, 2019",
-#   :rating => 5
-# }
-
 class AppReview
   attr_accessor :title, :body, :date, :rating, :app
 
@@ -40,4 +33,9 @@ class AppReview
     app.reviews << self unless app.reviews.include?(self)
   end
 
+  def self.create_from_collection(review_array, app)
+    review_array.each do |review_info|
+      self.create(review_info, app)
+    end
+  end
 end
