@@ -44,6 +44,7 @@ class ShopifyAppReviews::CLI
     puts "Use 'latest reviews' to see #{requested_app.name}'s 10 latest reviews.".colorize(:yellow)
     puts "Use 'app details' to review #{requested_app.name}'s details.".colorize(:yellow)
     puts "Use 'new app' to return to the previous menu.".colorize(:yellow)
+    puts "You can use 'exit cli' to leave at any time.".colorize(:yellow)
     print "What would you like to do? ".colorize(:green)
   end
 
