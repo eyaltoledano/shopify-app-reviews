@@ -102,7 +102,7 @@ class ShopifyAppReviews::CLI
   def display_app_reviews(app)
     add_reviews_to_app(app)
     total_reviews = app.total_review_count
-    puts "#{app.name}'s 10 latest reviews:".colorize(:light_green)
+    puts "#{app.name}'s 10 Latest Reviews:".colorize(:light_green)
     hr
     app.app_reviews.each_with_index do |review, index|
       puts "##{(index + 1)}. ".colorize(:yellow) + "#{review.title.split.map(&:capitalize).join(' ').colorize(:green)} - #{review.rating}".colorize(:green)
