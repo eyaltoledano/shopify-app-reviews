@@ -67,7 +67,7 @@ class ShopifyAppReviews::CLI
         sub_input = nil
         while !sub_input != "new app"
           hr
-          if  requested_app.nil?
+          if requested_app.nil?
             puts("Doesn't look like an app exists for that. Did you spell your request properly?")
             get_input
           else
