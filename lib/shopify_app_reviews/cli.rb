@@ -40,7 +40,7 @@ class ShopifyAppReviews::CLI
     print "Enter the name or URL of a Shopify app: ".colorize(:green)
   end
 
-  def print_sub_instructions
+  def print_sub_instructions(requested_app)
     puts "Use 'latest reviews' to see #{requested_app.name}'s 10 latest reviews.".colorize(:yellow)
     puts "Use 'app details' to review #{requested_app.name}'s details.".colorize(:yellow)
     puts "Use 'new app' to return to the previous menu.".colorize(:yellow)
@@ -53,7 +53,7 @@ class ShopifyAppReviews::CLI
       print_instructions
       input = gets.chomp.downcase
       hr
-      display_app_details(input) ? display_app_details(input) : puts("Doesn't look like an app exists for that. Did you spell your request properly?") unless input == "exit cli"
+      display_app_details(input) ? display_app_details(input) : puts("Doesn't look like an app exists for that. Did you spell your request properly?").colorize(:red) unless input == "exit cli"
     end
   end
 
@@ -67,7 +67,12 @@ class ShopifyAppReviews::CLI
         sub_input = nil
         while !sub_input != "new app"
           hr
-          print_sub_instructions
+          if  requested_app.nil?
+            puts("Doesn't look like an app exists for that. Did you spell your request properly?")
+            get_input
+          else
+            print_sub_instructions(requested_app)
+          end
           sub_input = gets.chomp.downcase
           if sub_input == "latest reviews"
             display_app_reviews(requested_app)
