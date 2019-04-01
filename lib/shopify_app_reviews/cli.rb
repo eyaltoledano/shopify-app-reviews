@@ -19,20 +19,21 @@ class ShopifyAppReviews::CLI
   def get_input
     input = nil
     while input != "exit"
-      puts "Search for a Shopify app by URL to access its information."
+      puts "Search for a Shopify app by name or URL to access its information."
       puts "You can use 'exit' to leave at any time."
-      print "Please enter a Shopify app URL: "
+      print "Please enter the name or URL of a Shopify app: "
       input = gets.chomp.downcase
-      if input.include?("apps.shopify.com")
-        display_app_details(input) ? display_app_details(input) : puts("Doesn't look like that app exists. Did you spell that right?")
+      if display_app_details(input) # input.include?("apps.shopify.com")
+        display_app_details(input)
       else
-        puts "Invalid entry. Please use a Shopify App URL."
+        puts("Doesn't look like that app exists. Did you spell that right?")
       end
     end
   end
 
-  def display_app_details(requested_url) # if an app is not found, return falsey
-    requested_app = ShopifyApp.all.find {|app| app.url.include?(requested_url)}
+  def display_app_details(input) # if an app is not found, return falsey
+    requested_app = ShopifyApp.find_by_url(input)
+    requested_app = ShopifyApp.find_by_name(input) if requested_app.nil?
     requested_app.nil? ? false : app_table(requested_app)
   end
 
