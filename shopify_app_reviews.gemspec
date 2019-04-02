@@ -3,8 +3,6 @@ lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "shopify_app_reviews/version"
 
-gem 'colorize'
-
 Gem::Specification.new do |spec|
   spec.name          = "shopify_app_reviews"
   spec.version       = ShopifyAppReviews::VERSION
@@ -38,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.17"
+  spec.add_development_dependency "bundler", "~> 2.0.1"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_dependency "colorize"
 end
