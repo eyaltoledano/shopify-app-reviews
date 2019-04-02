@@ -26,8 +26,16 @@ To start the CLI, navigate to the project root and run:
 
 You'll be required to supply the program with a Shopify app name or app URL from the Shopify App Store.
 
-If a Shopify App is found, you can  access its latest 10 reviews using
-`latest reviews`.
+If a Shopify App is found, you can  access its latest 10 reviews using:
+
+    $ latest reviews
+
+You can also access some basic sentiment analysis for each app, based on its overall rating as well as the combined ratings of the 10 latest reviews. Overall Sentiment and Trending Sentiment are available using:
+
+    $ overall sentiment
+    $ trending sentiment
+
+Please note that trending sentiment will not be available as an sub-menu option until the 10 latest reviews have been collected for that app using `latest reviews`, as it depends on that data.
 
 ## Contributing
 
