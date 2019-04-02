@@ -89,7 +89,13 @@ class ShopifyAppReviews::CLI
           end
           app_details_table(requested_app) if sub_input == "app details"
           overall_sentiment(requested_app) if sub_input == "overall sentiment"
-          trending_sentiment(requested_app) if sub_input == "trending sentiment" unless requested_app.app_reviews.empty?
+          unless requested_app.app_reviews.empty?
+            if sub_input == "trending sentiment"
+              hr
+              trending_sentiment(requested_app)
+            end
+          end
+
         end
       end
     end
@@ -101,7 +107,6 @@ class ShopifyAppReviews::CLI
   end
 
   def trending_sentiment(app)
-    hr
     puts "The trending sentiment for".colorize(:green) + " #{app.name.colorize(:white)} " + "is ".colorize(:green) + "#{app.trending_sentiment}"
   end
 

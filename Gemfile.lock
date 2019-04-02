@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    shopify_app_reviews (0.1.0)
+    shopify_app_reviews (0.2.0)
       colorize
 
 GEM
