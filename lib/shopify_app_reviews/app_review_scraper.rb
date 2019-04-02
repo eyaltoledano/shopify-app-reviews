@@ -28,6 +28,9 @@ class AppReviewScraper
 
     html2 = open(app.url)
     index2 = Nokogiri::HTML(html2)
-    app.developer_contact = index2.css('li.app-support-list__item span')[4].text.strip
+    dev_contact = index2.css('li.app-support-list__item span').children.find do |li|
+      li.text.strip if li.text.include?("@")
+    end
+    app.developer_contact = dev_contact.text
   end
 end
