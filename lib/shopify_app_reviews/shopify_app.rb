@@ -35,6 +35,25 @@ class ShopifyApp
     app_reviews.count
   end
 
+  def set_sentiment(rating_type)
+    sentiment = "Unknown"
+    rating = rating_type.split(" ").first.to_f
+    sentiment = "terrible".colorize(:red) if rating.between?(0.00,0.999)
+    sentiment = "really Bad".colorize(:red) if rating.between?(1.00,1.999)
+    sentiment = "OK At Best".colorize(:yellow) if rating.between?(2.00,2.999)
+    sentiment = "good".colorize(:yellow) if rating.between?(3.00,3.999)
+    sentiment = "great".colorize(:cyan) if rating.between?(4.00,4.499)
+    sentiment = "excellent".colorize(:cyan) if rating.between?(4.50,5.00)
+    sentiment
+  end
+
+  def overall_sentiment
+    set_sentiment(self.overall_rating)
+  end
+
+  def trending_sentiment
+  end
+
   def self.create_from_collection(app_array)
     app_array.each do |app_info|
       self.create(app_info)

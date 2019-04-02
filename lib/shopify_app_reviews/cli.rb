@@ -97,7 +97,9 @@ class ShopifyAppReviews::CLI
     puts "App URL: ".colorize(:green) + "#{app.url.colorize(:white)}"
     puts "Developer: ".colorize(:green) + "#{app.developer_name.colorize(:white)}" + " (#{app.developer_url})".colorize(:green)
     puts "Developer Contact: ".colorize(:green) + "#{app.developer_contact}".colorize(:white)
-
+    puts "The overall sentiment for".colorize(:green) + " #{app.name.colorize(:white)} " + "is ".colorize(:green) + "#{app.overall_sentiment}"
+    binding.pry
+    # puts "The trending sentiment for".colorize(:green) + " #{app.name.colorize(:white)} " + "is".colorize(:green) + "[sentiment]".colorize(:cyan)
   end
 
   def display_app_reviews(app)
