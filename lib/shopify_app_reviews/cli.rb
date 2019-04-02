@@ -43,6 +43,7 @@ class ShopifyAppReviews::CLI
   def print_sub_instructions(requested_app)
     puts "Use 'latest reviews' to see #{requested_app.name}'s 10 latest reviews.".colorize(:yellow)
     puts "Use 'app details' to review #{requested_app.name}'s details.".colorize(:yellow)
+    puts "Use 'overall sentiment' to see how people feel about #{requested_app.name} in general.".colorize(:yellow)
     puts "Use 'new app' to return to the previous menu.".colorize(:yellow)
     puts "You can use 'exit cli' to leave at any time.".colorize(:yellow)
     print "What would you like to do? ".colorize(:green)
@@ -84,9 +85,15 @@ class ShopifyAppReviews::CLI
             exit
           end
           app_details_table(requested_app) if sub_input == "app details"
+          overall_sentiment(requested_app) if sub_input == "overall sentiment"
         end
       end
     end
+  end
+
+  def overall_sentiment(app)
+    hr
+    puts "The overall sentiment for".colorize(:green) + " #{app.name.colorize(:white)} " + "is ".colorize(:green) + "#{app.overall_sentiment}"
   end
 
   def app_details_table(app)
