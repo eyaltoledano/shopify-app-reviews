@@ -37,13 +37,18 @@ class ShopifyApp
 
   def set_sentiment(rating_type)
     sentiment = "Unknown"
-    rating = rating_type.split(" ").first.to_f
-    sentiment = "terrible".colorize(:red) if rating.between?(0.00,0.999)
-    sentiment = "really Bad".colorize(:red) if rating.between?(1.00,1.999)
-    sentiment = "OK At Best".colorize(:yellow) if rating.between?(2.00,2.999)
-    sentiment = "good".colorize(:yellow) if rating.between?(3.00,3.999)
-    sentiment = "great".colorize(:cyan) if rating.between?(4.00,4.499)
-    sentiment = "excellent".colorize(:cyan) if rating.between?(4.50,5.00)
+    if rating_type.is_a?(String)
+      rating = rating_type.split(" ").first
+      rating = rating.to_f
+    else
+      rating = rating_type
+    end
+    sentiment = "terrible (#{rating}/5)".colorize(:red) if rating.between?(0.00,0.999)
+    sentiment = "really bad (#{rating}/5)".colorize(:red) if rating.between?(1.00,1.999)
+    sentiment = "OK at best (#{rating}/5)".colorize(:yellow) if rating.between?(2.00,2.999)
+    sentiment = "good (#{rating}/5)".colorize(:yellow) if rating.between?(3.00,3.999)
+    sentiment = "great (#{rating}/5)".colorize(:cyan) if rating.between?(4.00,4.499)
+    sentiment = "excellent (#{rating}/5)".colorize(:cyan) if rating.between?(4.50,5.00)
     sentiment
   end
 
@@ -52,6 +57,13 @@ class ShopifyApp
   end
 
   def trending_sentiment
+    ratings_array = []
+    self.app_reviews.each do |review|
+      rating = review.rating.split(" ").first.to_f
+      ratings_array << rating
+    end
+    trending_rating = ratings_array.reduce(:+) / ratings_array.size
+    set_sentiment(trending_rating)
   end
 
   def self.create_from_collection(app_array)

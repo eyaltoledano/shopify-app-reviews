@@ -44,6 +44,9 @@ class ShopifyAppReviews::CLI
     puts "Use 'latest reviews' to see #{requested_app.name}'s 10 latest reviews.".colorize(:yellow)
     puts "Use 'app details' to review #{requested_app.name}'s details.".colorize(:yellow)
     puts "Use 'overall sentiment' to see how people feel about #{requested_app.name} in general.".colorize(:yellow)
+    unless requested_app.app_reviews.empty?
+      puts "Use 'trending sentiment' to see how people feel about #{requested_app.name} lately.".colorize(:yellow)
+    end
     puts "Use 'new app' to return to the previous menu.".colorize(:yellow)
     puts "You can use 'exit cli' to leave at any time.".colorize(:yellow)
     print "What would you like to do? ".colorize(:green)
@@ -86,6 +89,7 @@ class ShopifyAppReviews::CLI
           end
           app_details_table(requested_app) if sub_input == "app details"
           overall_sentiment(requested_app) if sub_input == "overall sentiment"
+          trending_sentiment(requested_app) if sub_input == "trending sentiment" unless requested_app.app_reviews.empty?
         end
       end
     end
@@ -94,6 +98,11 @@ class ShopifyAppReviews::CLI
   def overall_sentiment(app)
     hr
     puts "The overall sentiment for".colorize(:green) + " #{app.name.colorize(:white)} " + "is ".colorize(:green) + "#{app.overall_sentiment}"
+  end
+
+  def trending_sentiment(app)
+    hr
+    puts "The trending sentiment for".colorize(:green) + " #{app.name.colorize(:white)} " + "is ".colorize(:green) + "#{app.trending_sentiment}"
   end
 
   def app_details_table(app)
@@ -105,8 +114,7 @@ class ShopifyAppReviews::CLI
     puts "Developer: ".colorize(:green) + "#{app.developer_name.colorize(:white)}" + " (#{app.developer_url})".colorize(:green)
     puts "Developer Contact: ".colorize(:green) + "#{app.developer_contact}".colorize(:white)
     puts "The overall sentiment for".colorize(:green) + " #{app.name.colorize(:white)} " + "is ".colorize(:green) + "#{app.overall_sentiment}"
-    binding.pry
-    # puts "The trending sentiment for".colorize(:green) + " #{app.name.colorize(:white)} " + "is".colorize(:green) + "[sentiment]".colorize(:cyan)
+    trending_sentiment(app) unless app.app_reviews.empty?
   end
 
   def display_app_reviews(app)
