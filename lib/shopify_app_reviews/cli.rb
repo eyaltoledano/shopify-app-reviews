@@ -112,6 +112,7 @@ class ShopifyAppReviews::CLI
 
   def app_details_table(app)
     add_metadata_to_app(app)
+    hr
     puts "Found ".colorize(:green) + "#{app.name.colorize(:white)}" + " in the ".colorize(:green) + "#{app.category.colorize(:white)}" + " category. ".colorize(:green)
     print "#{app.description.colorize(:white)}" + " - ".colorize(:green)
     puts "#{app.overall_rating.colorize(:white)}"
