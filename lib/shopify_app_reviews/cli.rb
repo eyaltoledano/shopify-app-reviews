@@ -57,7 +57,6 @@ class ShopifyAppReviews::CLI
     while input != "exit cli"
       print_instructions
       input = gets.chomp.downcase
-      hr
       display_app_details(input) ? display_app_details(input) : puts("Doesn't look like an app exists for that. Did you spell your request properly?").colorize(:red) unless input == "exit cli"
     end
   end
@@ -73,7 +72,8 @@ class ShopifyAppReviews::CLI
         while !sub_input != "new app"
           hr
           if requested_app.nil?
-            puts("Doesn't look like an app exists for that. Did you spell your request properly?")
+            puts "Doesn't look like an app exists for that. Did you spell your request properly?".colorize(:red)
+            hr
             get_input
           else
             print_sub_instructions(requested_app)
@@ -130,7 +130,7 @@ class ShopifyAppReviews::CLI
     app.app_reviews.each_with_index do |review, index|
       puts "##{(index + 1)}. ".colorize(:yellow) + "#{review.title.split.map(&:capitalize).join(' ').colorize(:green)} - #{review.rating}".colorize(:green)
       puts "Reviewed on #{review.date}".colorize(:green)
-      puts "#{review.body}".colorize(:green)
+      puts "#{review.body}".colorize(:white)
       hr unless review == app.app_reviews.last
     end
   end
