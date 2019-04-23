@@ -41,7 +41,7 @@ class ShopifyAppReviews::CLI
   end
 
   def print_sub_instructions(requested_app)
-    puts "Use 'latest reviews' to see #{requested_app.name}'s 10 latest reviews.".colorize(:yellow)
+    puts "Use 'latest reviews' to see #{requested_app.name}'s latest reviews.".colorize(:yellow)
     puts "Use 'app details' to review #{requested_app.name}'s details.".colorize(:yellow)
     puts "Use 'overall sentiment' to see how people feel about #{requested_app.name} in general.".colorize(:yellow)
     unless requested_app.app_reviews.empty?
@@ -113,7 +113,7 @@ class ShopifyAppReviews::CLI
   def app_details_table(app)
     add_metadata_to_app(app)
     hr
-    puts "Found ".colorize(:green) + "#{app.name.colorize(:white)}" + " in the ".colorize(:green) + "#{app.category.colorize(:white)}" + " category. ".colorize(:green)
+    puts "Found ".colorize(:green) + "#{app.name.strip.colorize(:white)}" + " in the ".colorize(:green) + "#{app.category.colorize(:white)}" + " category. ".colorize(:green)
     print "#{app.description.colorize(:white)}" + " - ".colorize(:green)
     puts "#{app.overall_rating.colorize(:white)}"
     puts "App URL: ".colorize(:green) + "#{app.url.colorize(:white)}"
@@ -126,7 +126,7 @@ class ShopifyAppReviews::CLI
   def display_app_reviews(app)
     add_reviews_to_app(app)
     total_reviews = app.total_review_count
-    puts "#{app.name}'s 10 Latest Reviews:".colorize(:light_green)
+    puts "#{app.name}'s Latest Reviews:".colorize(:light_green)
     hr
     app.app_reviews.each_with_index do |review, index|
       puts "##{(index + 1)}. ".colorize(:yellow) + "#{review.title.split.map(&:capitalize).join(' ').colorize(:green)} - #{review.rating}".colorize(:green)
